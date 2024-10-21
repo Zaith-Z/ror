@@ -50,7 +50,7 @@ import { ResourceQuery } from '../../../core/models/resources-v2';
   templateUrl: './resource-table.component.html',
   styleUrl: './resource-table.component.scss',
 })
-export class ResourceTableComponent implements OnInit, OnDestroy {
+export class ResourceTableComponent implements OnInit {
   @Input() clusterId: string = undefined;
 
   resourcesFetchError: any;
@@ -86,8 +86,6 @@ export class ResourceTableComponent implements OnInit, OnDestroy {
   selectedColumns: any[] = [];
 
   sidebarVisible = false;
-
-  private subscriptions = new Subscription();
 
   constructor(
     private changeDetector: ChangeDetectorRef,
@@ -126,10 +124,6 @@ export class ResourceTableComponent implements OnInit, OnDestroy {
 
     this.fetchResources();
     this.changeDetector.detectChanges();
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
   }
 
   fetchResources(): void {

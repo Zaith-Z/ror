@@ -137,7 +137,9 @@
     "releasenotes": "Endringer",
     "compliancereports": "Samsvarsrapporter",
     "orders": "Ordrer",
-    "resources": "Ressurser"
+    "resources": "Ressurser",
+    "virtualmachines": "Virtuelle maskiner",
+    "kubernetesclusters": "Kubernetes cluster"
   },
   "error": {
     "forbidden": "Forbudt område",
@@ -1305,6 +1307,13 @@
         "cluster": {
           "placeholder": "Velg et cluster"
         }
+      }
+    },
+    "virtualmachines": {
+      "title": "Virtuelle maskiner",
+      "create": "Lag virtuell maskin",
+      "table": {
+        "empty": "Ingen virtuelle maskiner"
       }
     },
     "workspaces": {

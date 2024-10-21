@@ -151,7 +151,9 @@
     "releasenotes": "Release notes",
     "compliancereports": "Compliance reports",
     "orders": "Orders",
-    "resources": "Resources"
+    "resources": "Resources",
+    "virtualmachines": "Virtual machines",
+    "kubernetesclusters": "Kubernetes clusters"
   },
   "pages": {
     "about": {
@@ -1314,6 +1316,13 @@
         "cluster": {
           "placeholder": "Select a cluster"
         }
+      }
+    },
+    "virtualmachines": {
+      "title": "Virtual machines",
+      "create": "Create virtual machine",
+      "table": {
+        "empty": "No virtual machines"
       }
     },
     "workspaces": {
