@@ -150,6 +150,7 @@
     "vulnerabilityreports": "Vulnerability reports",
     "releasenotes": "Release notes",
     "compliancereports": "Compliance reports",
+    "compliancerescore": "Compliance score",
     "orders": "Orders",
     "resources": "Resources"
   },
@@ -522,6 +523,13 @@
         }
       },
       "compliancereports": {
+        "cluster": "Cluster",
+        "name": "Name",
+        "title": "Title",
+        "passcount": "Passed",
+        "failcount": "Failed"
+      },
+      "compliancescore": {
         "cluster": "Cluster",
         "name": "Name",
         "title": "Title",
@@ -904,6 +912,21 @@
         },
         "compliancereports": {
           "title": "Compliance reports",
+          "table": {
+            "name": "Name",
+            "title": "Title",
+            "passcount": "Passed",
+            "failcount": "Falled",
+            "details": {
+              "id": "Id",
+              "name": "Name",
+              "severity": "Severity",
+              "totalfail": "Failed"
+            }
+          }
+        },
+        "compliancescore": {
+          "title": "Compliance score",
           "table": {
             "name": "Name",
             "title": "Title",

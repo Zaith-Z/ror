@@ -55,6 +55,10 @@ export class ClusterDetailsComponent implements OnInit, OnDestroy {
       query: 'tab=complianceReports',
     },
     {
+      metadata: 'complianceScore',
+      query: 'tab=complianceScore',
+    },
+    {
       metadata: 'raw',
       query: 'tab=raw',
     },

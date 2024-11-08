@@ -131,6 +131,22 @@
 
       <p-tabPanel>
         <ng-template pTemplate="header">
+          <i class="pi pi-chart-pie"></i>
+          <span class="ml-2">{{ 'pages.clusters.details.compliancescore.title' | translate }}</span>
+          <p-badge
+            *ngIf="editInvalidCount?.length > 0 && editInvalidCount !== '0'"
+            class="ml-1"
+            [value]="editInvalidCount"
+            severity="danger"
+          ></p-badge>
+        </ng-template>
+        <div>
+          <app-cluster-metadata-page [cluster]="cluster" (refreshRequested)="fetchCluster(clusterId)"></app-cluster-metadata-page>
+        </div>
+      </p-tabPanel>
+
+      <p-tabPanel>
+        <ng-template pTemplate="header">
           <div class="text-red-500 dark:text-red-400">
             <i class="pi pi-ban"></i>
             <span class="ml-2">{{ 'pages.clusters.details.delete.title' | translate }}</span>
