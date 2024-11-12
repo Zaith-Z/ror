@@ -527,6 +527,13 @@
         "title": "Tittel",
         "passcount": "OK",
         "failcount": "Feilet"
+      },
+      "compliancescore": {
+        "cluster": "Cluster",
+        "name": "Navn",
+        "title": "Tittel",
+        "passcount": "OK",
+        "failcount": "Feilet"
       }
     },
     "apikeys": {
@@ -905,6 +912,23 @@
         },
         "compliancereports": {
           "title": "Samsvarsrapporter",
+          "table": {
+            "name": "Navn",
+            "title": "Tittel",
+            "passcount": "OK",
+            "failcount": "Feilet",
+            "details": {
+              "id": "Id",
+              "name": "Navn",
+              "severity": "Alvorlighetsgrad",
+              "totalfail": "Feilet"
+            }
+          }
+        },
+        "compliancescore": {
+          "title": "Samsvarspoeng",
+          "version": "Versjon",
+          "nodata": "Ingen data",
           "table": {
             "name": "Navn",
             "title": "Tittel",

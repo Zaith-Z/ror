@@ -55,10 +55,6 @@ export class ClusterDetailsComponent implements OnInit, OnDestroy {
       query: 'tab=complianceReports',
     },
     {
-      metadata: 'complianceScore',
-      query: 'tab=complianceScore',
-    },
-    {
       metadata: 'raw',
       query: 'tab=raw',
     },
@@ -69,6 +65,14 @@ export class ClusterDetailsComponent implements OnInit, OnDestroy {
     {
       metadata: 'resources',
       query: 'tab=resources',
+    },
+    {
+      metadata: 'notifications',
+      query: 'tab=notifications',
+    },
+    {
+      metadata: 'complianceScore',
+      query: 'tab=complianceScore',
     },
     {
       metadata: 'delete',
@@ -194,6 +198,7 @@ export class ClusterDetailsComponent implements OnInit, OnDestroy {
 
   switchTab(selectedIndex: number): void {
     try {
+      console.log('Tab: ', selectedIndex, this.tabs);
       const tab = this.tabs[selectedIndex];
       this.location.replaceState(`cluster/${this.clusterId}`, tab?.query);
     } catch {

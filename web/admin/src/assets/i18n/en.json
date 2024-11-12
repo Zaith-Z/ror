@@ -927,6 +927,8 @@
         },
         "compliancescore": {
           "title": "Compliance score",
+          "version": "Version",
+          "nodata": "No data",
           "table": {
             "name": "Name",
             "title": "Title",
