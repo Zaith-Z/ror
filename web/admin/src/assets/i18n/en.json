@@ -925,6 +925,21 @@
             }
           }
         },
+        "reports": {
+          "title": "Reports",
+          "table": {
+            "name": "Name",
+            "title": "Title",
+            "passcount": "Passed",
+            "failcount": "Falled",
+            "details": {
+              "id": "Id",
+              "name": "Name",
+              "severity": "Severity",
+              "totalfail": "Failed"
+            }
+          }
+        },
         "compliancescore": {
           "title": "Compliance score",
           "version": "Version",

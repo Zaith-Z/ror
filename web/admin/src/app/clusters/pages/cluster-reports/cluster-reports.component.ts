@@ -3,49 +3,30 @@ import { Observable, catchError, of } from 'rxjs';
 import { ComplianceReport } from '../../../core/models/complianceReport';
 import { ComplianceReportsService } from '../../../core/services/compliance-reports.service';
 import { ExportService } from '../../../core/services/export.service';
+import { Location } from '@angular/common';
 
 @Component({
-  selector: 'app-cluster-compliance-report',
-  templateUrl: './cluster-compliance-report.component.html',
-  styleUrl: './cluster-compliance-report.component.scss',
+  selector: 'app-cluster-reports',
+  templateUrl: './cluster-reports.component.html',
+  styleUrl: './cluster-reports.component.scss',
 })
-export class ClusterComplianceReportComponent implements OnInit {
+export class ClusterReportsComponent implements OnInit {
   @Input() clusterId: string;
-  backgroundColors = ['#006400', '#D48282'];
-  lightbackgroundColors = ['#90DDFA', '#D48282'];
-  chartData = {
-    labels: ['GOOD', 'BAD'],
-    datasets: [
-      {
-        label: 'Vulnerabilities',
-        data: [50, 50],
-        backgroundColor: this.backgroundColors,
-        borderColor: this.lightbackgroundColors,
-        borderWidth: 1,
-      },
-    ],
-  };
-  chartOptions = {
-    plugins: {
-      legend: {
-        display: false,
-      },
-    },
-    animation: false,
-    responsive: false,
-  };
+
   complianceReports$: Observable<ComplianceReport[]>;
   mainColumns: any[];
   subColumns: any[];
   showExportChoices: boolean;
+  selectedTab = 0;
+  selectedTabIndex: number = 0;
 
   constructor(
     private complianceReportService: ComplianceReportsService,
     private exportService: ExportService,
+    private location: Location,
   ) {}
 
   ngOnInit(): void {
-    this.setupColumns();
     this.getComplianceReports();
   }
 
@@ -55,45 +36,6 @@ export class ClusterComplianceReportComponent implements OnInit {
         throw of(error);
       }),
     );
-  }
-
-  setupColumns(): void {
-    this.mainColumns = [
-      {
-        field: 'metadata.name',
-        header: 'name',
-      },
-      {
-        field: 'metadata.title',
-        header: 'title',
-      },
-      {
-        field: 'summary.passcount',
-        header: 'passcount',
-      },
-      {
-        field: 'summary.failcount',
-        header: 'failcount',
-      },
-    ];
-    this.subColumns = [
-      {
-        field: 'id',
-        header: 'id',
-      },
-      {
-        field: 'name',
-        header: 'name',
-      },
-      {
-        field: 'severity',
-        header: 'severity',
-      },
-      {
-        field: 'totalfail',
-        header: 'totalfail',
-      },
-    ];
   }
 
   getValue(object: Object, key: string): void {
@@ -125,4 +67,43 @@ export class ClusterComplianceReportComponent implements OnInit {
     });
     return formattedExport?.length > 0 ? formattedExport : [''];
   }
+
+  switchTab(selectedIndex: number): void {
+    try {
+      console.log('Tab: ', selectedIndex, this.tabs);
+      const tab = this.tabs[selectedIndex];
+      this.location.replaceState(`cluster/${this.clusterId}`, tab?.query);
+    } catch {
+      //ignoring
+    }
+  }
+  switchView(selectedIndex: number): void {
+    try {
+      console.log('Tab: ', selectedIndex, this.tabs);
+      this.selectedTab = selectedIndex;
+    } catch {
+      //ignoring
+    }
+  }
+
+  getClass() {
+    return {
+      'bg-yellow-500': this.selectedTab === 0,
+    };
+  }
+
+  private tabs: any[] = [
+    {
+      metadata: 'vulnerabilityReports',
+      query: 'tab=vulnerabilityReports',
+    },
+    {
+      metadata: 'complianceReports',
+      query: 'tab=complianceReports',
+    },
+    {
+      metadata: 'policyReports',
+      query: 'tab=policyReports',
+    },
+  ];
 }

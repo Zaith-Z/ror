@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ClusterService } from '../../services';
+import { ChartModule } from 'primeng/chart';
 
 @Component({
   selector: 'app-cluster-compliancescore-page',
@@ -11,7 +12,30 @@ export class ClusterComplianceScoreComponent implements OnInit {
   @Input() cluster: any;
   @Output() refreshRequested = new EventEmitter<void>();
   edit = false;
-
+  data = [1, 2, 3, 4, 1, 2, 1];
+  backgroundColors = ['#006400', '#D48282'];
+  lightbackgroundColors = ['#90DDFA', '#D48282'];
+  chartData = {
+    labels: ['GOOD', 'BAD'],
+    datasets: [
+      {
+        label: 'Sales',
+        data: [50, 50],
+        backgroundColor: this.backgroundColors,
+        borderColor: this.lightbackgroundColors,
+        borderWidth: 1,
+      },
+    ],
+  };
+  chartOptions = {
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
+    animation: false,
+    responsive: false,
+  };
   tags: string[] = [];
 
   constructor(

@@ -54,30 +54,10 @@
     <p-tabPanel>
       <ng-template pTemplate="header">
         <i class="pi pi-list"></i>
-        <span class="ml-2">{{ 'pages.clusters.details.policyreports.title' | translate }}</span>
+        <span class="ml-2">{{ 'pages.clusters.details.reports.title' | translate }}</span>
       </ng-template>
       <ng-template pTemplate="content">
-        <app-cluster-policy-report></app-cluster-policy-report>
-      </ng-template>
-    </p-tabPanel>
-
-    <p-tabPanel>
-      <ng-template pTemplate="header">
-        <i class="pi pi-list"></i>
-        <span class="ml-2">{{ 'pages.clusters.details.vulnerabilityreports.title' | translate }}</span>
-      </ng-template>
-      <ng-template pTemplate="content">
-        <app-cluster-vulnerability-report></app-cluster-vulnerability-report>
-      </ng-template>
-    </p-tabPanel>
-
-    <p-tabPanel>
-      <ng-template pTemplate="header">
-        <i class="pi pi-list"></i>
-        <span class="ml-2">{{ 'pages.clusters.details.compliancereports.title' | translate }}</span>
-      </ng-template>
-      <ng-template pTemplate="content">
-        <app-cluster-compliance-report [clusterId]="cluster?.clusterId"></app-cluster-compliance-report>
+        <app-cluster-reports [clusterId]="cluster?.clusterId"></app-cluster-reports>
       </ng-template>
     </p-tabPanel>
 
@@ -133,12 +113,6 @@
         <ng-template pTemplate="header">
           <i class="pi pi-chart-pie"></i>
           <span class="ml-2">{{ 'pages.clusters.details.compliancescore.title' | translate }}</span>
-          <p-badge
-            *ngIf="editInvalidCount?.length > 0 && editInvalidCount !== '0'"
-            class="ml-1"
-            [value]="editInvalidCount"
-            severity="danger"
-          ></p-badge>
         </ng-template>
         <div>
           <app-cluster-compliancescore-page [cluster]="cluster" (refreshRequested)="fetchCluster(clusterId)"></app-cluster-compliancescore-page>

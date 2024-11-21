@@ -28,6 +28,8 @@
       </div>
     </div>
   </div>
+  <p-chart width="40vw" height="60vh" type="pie" [data]="chartData" [options]="chartOptions" />
+
   <p-table [value]="complianceReports" [columns]="mainColumns" dataKey="metadata.name">
     <ng-template pTemplate="header" let-columns>
       <tr>

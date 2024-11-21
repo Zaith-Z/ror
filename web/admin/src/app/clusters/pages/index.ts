@@ -4,6 +4,7 @@ import { ClusterMetadataPageComponent } from './cluster-metadata-page/cluster-me
 import { ClusterNewComponent } from './cluster-new/cluster-new.component';
 import { IngressDetailsComponent } from './ingress-details/ingress-details.component';
 import { ClusterComplianceScoreComponent } from './cluster-compliancescore-page/cluster-compliancescore-page.component';
+import { ClusterReportsComponent } from './cluster-reports/cluster-reports.component';
 
 export * from './cluster-details/cluster-details.component';
 export * from './cluster-details-edit/cluster-details-edit.component';
@@ -18,4 +19,5 @@ export const clustersPages = [
   ClusterNewComponent,
   IngressDetailsComponent,
   ClusterComplianceScoreComponent,
+  ClusterReportsComponent,
 ];

@@ -1,5 +1,5 @@
 <div class="grid grid-cols-1">
-  <div class="grid gap-2 sm:col-span-1 md:col-span-1 lg:col-span-2">
+  <div class="grid gap-2 sm:col-span-1 md:col-span-1 lg:col-span-2 xl:col-span-8">
     <div class="dark:bg-darker flex justify-between overflow-x-auto rounded-md bg-white p-4">
       <div class="dark:bg-darker w-full flex flex-col rounded-md bg-white">
         <div class="dark:border-primary flex justify-between border-b p-3">
@@ -19,28 +19,26 @@
             {{ 'common.refresh' | translate }}
           </button>
         </div>
-        @if (!edit) {
-          <div class="p-3 w-full">
-            <table class="border-collapse text-left w-full">
-              <tbody class="">
-                <tr class="hover:bg-grey-light">
-                  <td class="px-2 py-1 align-top">{{ 'pages.clusters.details.compliancescore.version' | translate }}</td>
-                  <td class="px-2 py-1 font-bold">
-                    <div class="dark:bg-gray-800 bg-slate-200 p-4">
-                      {{
-                        cluster.versions.nhnTooling.version
-                          ? cluster.versions.nhnTooling.version
-                          : ('pages.clusters.details.compliancescore.nodata' | translate)
-                      }}
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        } @else {
-          <app-cluster-details-edit [cluster]="cluster" (updateOk)="onUpdateOk($event)"></app-cluster-details-edit>
-        }
+        <p-chart width="40vw" height="60vh" type="pie" [data]="chartData" [options]="chartOptions" />
+
+        <div class="p-3 w-full">
+          <table class="border-collapse text-left w-full">
+            <tbody class="">
+              <tr class="hover:bg-grey-light">
+                <td class="px-2 py-1 align-top">{{ 'pages.clusters.details.compliancescore.version' | translate }}</td>
+                <td class="px-2 py-1 font-bold">
+                  <div class="dark:bg-gray-800 bg-slate-200 p-4">
+                    {{
+                      cluster.versions.nhnTooling.version
+                        ? cluster.versions.nhnTooling.version
+                        : ('pages.clusters.details.compliancescore.nodata' | translate)
+                    }}
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>

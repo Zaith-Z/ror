@@ -16,7 +16,29 @@ import { ExportService } from '../../../core/services/export.service';
 export class ClusterPolicyReportComponent implements OnInit, OnDestroy {
   @ViewChildren('resultTable')
   tables: QueryList<Table>;
-
+  backgroundColors = ['#006400', '#D48282'];
+  lightbackgroundColors = ['#90DDFA', '#D48282'];
+  chartData = {
+    labels: ['GOOD', 'BAD'],
+    datasets: [
+      {
+        label: 'Vulnerabilities',
+        data: [50, 50],
+        backgroundColor: this.backgroundColors,
+        borderColor: this.lightbackgroundColors,
+        borderWidth: 1,
+      },
+    ],
+  };
+  chartOptions = {
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
+    animation: false,
+    responsive: false,
+  };
   policyreports$: Observable<PolicyReportView> | undefined;
   policyreports: PolicyReportView;
   policyreportsError: any;

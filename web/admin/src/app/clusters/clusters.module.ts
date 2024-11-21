@@ -33,6 +33,7 @@ import { HighlightModule } from 'ngx-highlightjs';
 import { HighlightLineNumbers } from 'ngx-highlightjs/line-numbers';
 import { clusterServices } from './services';
 import { ResourceTableComponent } from '../resources/components/resource-table/resource-table.component';
+import { ChartModule } from 'primeng/chart';
 
 @NgModule({
   declarations: [ClustersComponent, ...clustersPages, ...clusterComponents],
@@ -67,6 +68,7 @@ import { ResourceTableComponent } from '../resources/components/resource-table/r
     ResourceTableComponent,
     HighlightLineNumbers,
     DialogModule,
+    ChartModule,
   ],
   exports: [ClustersComponent, ...clustersPages, ...clusterComponents],
   providers: [ConfirmationService, ...clusterServices],
