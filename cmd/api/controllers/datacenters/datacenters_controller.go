@@ -2,9 +2,10 @@
 package datacenters
 
 import (
+	"net/http"
+
 	datacentersservice "github.com/NorskHelsenett/ror/cmd/api/services/datacentersService"
 	aclservice "github.com/NorskHelsenett/ror/internal/acl/services"
-	"net/http"
 
 	"github.com/NorskHelsenett/ror/pkg/context/gincontext"
 	"github.com/NorskHelsenett/ror/pkg/context/rorcontext"
@@ -40,7 +41,9 @@ func init() {
 //	@Router			/v1/datacenters	[get]
 //	@Security		ApiKey || AccessToken
 func GetAll() gin.HandlerFunc {
+
 	return func(c *gin.Context) {
+
 		ctx, cancel := gincontext.GetRorContextFromGinContext(c)
 		defer cancel()
 

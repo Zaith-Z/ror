@@ -13,10 +13,14 @@ import (
 	"github.com/NorskHelsenett/ror/pkg/rlog"
 
 	"github.com/NorskHelsenett/ror/pkg/apicontracts"
+
+	"go.uber.org/zap"
 )
 
 func GetAllByUser(ctx context.Context) (*[]apicontracts.Datacenter, error) {
 	datacenters, err := datacentersRepo.GetAllByUser(ctx)
+	rlog.Debug("DATA CENTERS REPO:  %f \n", zap.Any("A ", datacenters), zap.Any("B ", err))
+
 	if err != nil {
 		return nil, errors.New("could not fetch datacenters")
 	}

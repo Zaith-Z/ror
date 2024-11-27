@@ -21,6 +21,7 @@ import (
 )
 
 func InitHttpServer() {
+	rlog.Debug("Name INITHTTPSERVER:")
 	useCors := viper.GetBool(configconsts.GIN_USE_CORS)
 	allowOrigins := viper.GetString(configconsts.GIN_ALLOW_ORIGINS)
 	_, _ = fmt.Printf("using cors: %t", useCors)

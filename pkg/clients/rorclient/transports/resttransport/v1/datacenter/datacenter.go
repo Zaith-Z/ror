@@ -6,6 +6,8 @@ import (
 	"github.com/NorskHelsenett/ror/pkg/clients/rorclient/transports/resttransport/httpclient"
 
 	"github.com/NorskHelsenett/ror/pkg/apicontracts"
+
+	"github.com/NorskHelsenett/ror/pkg/rlog"
 )
 
 type V1Client struct {
@@ -24,6 +26,8 @@ func (c *V1Client) Get() (*[]apicontracts.Datacenter, error) {
 	var datacenters []apicontracts.Datacenter
 
 	err := c.Client.GetJSON(c.basePath, &datacenters)
+	rlog.Debug("Name TTTTTTTTTTTTTTTTTTTTTTTTTTTTT:")
+
 	if err != nil {
 		return nil, err
 	}

@@ -24,6 +24,8 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
+
+	"go.uber.org/zap"
 )
 
 const (
@@ -32,10 +34,14 @@ const (
 )
 
 func GetAllByUser(ctx context.Context) (*[]apicontracts.Datacenter, error) {
+	rlog.Debug("GET ALL BY USERS:  %f \n", zap.Any("A ", ctx))
+
 	db := mongodb.GetMongoDb()
 	var datacentersQuery []bson.M
 
 	datacentersCursor, err := db.Collection(CollectionName).Aggregate(ctx, datacentersQuery)
+	rlog.Debug("GET ALL BY USERS RETURNING: ", zap.Any("A ", ctx), zap.Any("B ", datacentersQuery), zap.Any("C ", err), zap.Any("D: ", datacentersCursor))
+
 	accessLists := aclrepo.GetACL2ByIdentityQuery(ctx, aclmodels.AclV2QueryAccessScope{Scope: aclmodels.Acl2ScopeCluster})
 	accessQuery := mongoHelper.CreateClusterACLFilter(accessLists)
 
@@ -80,6 +86,7 @@ func GetAllByUser(ctx context.Context) (*[]apicontracts.Datacenter, error) {
 	}
 
 	clusterCursor, err := db.Collection(ClusterCollectionName).Aggregate(ctx, clusterQuery)
+
 	if err != nil {
 		return nil, errors.New("could not fetch all datacenters")
 	}
@@ -123,6 +130,7 @@ func GetAllByUser(ctx context.Context) (*[]apicontracts.Datacenter, error) {
 			}
 		}
 	}
+	rlog.Debug("GET ALL BY USERS RETURNING: ", zap.Any("A ", datacenters))
 
 	return &datacenters, nil
 }
