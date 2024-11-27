@@ -13,11 +13,13 @@
 
   <app-cluster-conditions [conditions]="cluster?.status?.conditions"></app-cluster-conditions>
 
-  <p-tabView styleClass="tabview" [(activeIndex)]="selectedTabIndex" (activeIndexChange)="switchTab($event)">
+  <p-tabView styleClass="tabview" [(activeIndex)]="selectedTabIndex" (activeIndexChange)="switchTab($event)" [scrollable]="true">
     <p-tabPanel>
       <ng-template pTemplate="header">
-        <i class="pi pi-server"></i>
-        <span class="ml-2">{{ 'pages.clusters.details.title' | translate }}</span>
+        <div class="flex text-nowrap">
+          <i class="pi pi-server mt-1"></i>
+          <span class="ml-2">{{ 'pages.clusters.details.title' | translate }}</span>
+        </div>
       </ng-template>
       <ng-template pTemplate="content">
         <div class="">
@@ -41,8 +43,10 @@
 
     <p-tabPanel header="{{ 'pages.clusters.details.ingresses.title' | translate }}">
       <ng-template pTemplate="header">
-        <i class="pi pi-file"></i>
-        <span class="ml-2">{{ 'pages.clusters.details.ingresses.title' | translate }}</span>
+        <div class="flex text-nowrap">
+          <i class="pi pi-file mt-1"></i>
+          <span class="ml-2">{{ 'pages.clusters.details.ingresses.title' | translate }}</span>
+        </div>
       </ng-template>
       <ng-template pTemplate="content">
         <div class="">
@@ -58,13 +62,48 @@
       </ng-template>
       <ng-template pTemplate="content">
         <app-cluster-reports [clusterId]="cluster?.clusterId"></app-cluster-reports>
+        <div class="flex text-nowrap">
+          <i class="pi pi-list mt-1"></i>
+          <span class="ml-2">{{ 'pages.clusters.details.policyreports.title' | translate }}</span>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="content">
+        <app-cluster-policy-report></app-cluster-policy-report>
+      </ng-template>
+    </p-tabPanel>
+
+    <p-tabPanel>
+      <ng-template pTemplate="header">
+        <div class="flex text-nowrap">
+          <i class="pi pi-list mt-1"></i>
+          <span class="ml-2">{{ 'pages.clusters.details.vulnerabilityreports.title' | translate }}</span>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="content">
+        <!-- todo when cluster agent v2 is active remove this comment-->
+        <!-- <app-cluster-vulnerability [cluster]="cluster"></app-cluster-vulnerability> -->
+        <app-cluster-vulnerability-report></app-cluster-vulnerability-report>
+      </ng-template>
+    </p-tabPanel>
+
+    <p-tabPanel>
+      <ng-template pTemplate="header">
+        <div class="flex text-nowrap">
+          <i class="pi pi-list mt-1"></i>
+          <span class="ml-2">{{ 'pages.clusters.details.compliancereports.title' | translate }}</span>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="content">
+        <app-cluster-compliance-report [clusterId]="cluster?.clusterId"></app-cluster-compliance-report>
       </ng-template>
     </p-tabPanel>
 
     <p-tabPanel header="{{ 'pages.clusters.details.raw' | translate }}">
       <ng-template pTemplate="header">
-        <i class="pi pi-file"></i>
-        <span class="ml-2">{{ 'pages.clusters.details.raw' | translate }}</span>
+        <div class="flex text-nowrap">
+          <i class="pi pi-file mt-1"></i>
+          <span class="ml-2">{{ 'pages.clusters.details.raw' | translate }}</span>
+        </div>
       </ng-template>
       <ng-template pTemplate="content">
         <div>
@@ -75,9 +114,16 @@
 
     <p-tabPanel>
       <ng-template pTemplate="header">
-        <i class="pi pi-cog"></i>
-        <span class="ml-2">{{ 'pages.clusters.details.metadata.title' | translate }}</span>
-        <p-badge *ngIf="editInvalidCount?.length > 0 && editInvalidCount !== '0'" class="ml-1" [value]="editInvalidCount" severity="danger"></p-badge>
+        <div class="flex text-nowrap">
+          <i class="pi pi-cog mt-1"></i>
+          <span class="ml-2">{{ 'pages.clusters.details.metadata.title' | translate }}</span>
+          <p-badge
+            *ngIf="editInvalidCount?.length > 0 && editInvalidCount !== '0'"
+            class="ml-1"
+            [value]="editInvalidCount"
+            severity="danger"
+          ></p-badge>
+        </div>
       </ng-template>
       <div>
         <app-cluster-metadata-page [cluster]="cluster" (refreshRequested)="fetchCluster(clusterId)"></app-cluster-metadata-page>
@@ -87,20 +133,43 @@
     @if (adminOwner$ | async) {
       <p-tabPanel>
         <ng-template pTemplate="header">
-          <div>
-            <i class="pi pi-server"></i>
+          <div class="flex text-nowrap">
+            <i class="pi pi-server mt-1"></i>
             <span class="ml-2">{{ 'pages.clusters.details.resources.title' | translate }}</span>
           </div>
         </ng-template>
-        <div>
-          <app-resource-table [clusterId]="cluster?.clusterId"></app-resource-table>
-        </div>
+        <ng-template pTemplate="content">
+          <div class="dark:bg-darker flex flex-col rounded-md bg-white">
+            <div class="dark:border-primary flex items-center justify-between border-b p-3">
+              <app-resourcesv2-filter
+                class="flex-grow"
+                [clusters]="[cluster]"
+                [resourceTypes]="resourceTypes"
+                (filterChange)="resourcesTable.filterChanged($event)"
+                (reset)="resourcesTable.reset()"
+              ></app-resourcesv2-filter>
+              <button
+                (click)="resourcesTable.refreshData()"
+                class="hover:bg-primary-dark focus:ring-primary dark:focus:ring-offset-dark ml-2 rounded-md bg-green-700 px-4 py-2 text-sm text-white focus:outline-none focus:ring focus:ring-offset-1 focus:ring-offset-white"
+              >
+                {{ 'common.refresh' | translate }}
+              </button>
+            </div>
+            <div class="p-3 flex flex-col">
+              <app-resources-v2-list
+                [clusterId]="clusterId"
+                #resourcesTable
+                (resourceSelected)="showSelectedResource($event)"
+              ></app-resources-v2-list>
+            </div>
+          </div>
+        </ng-template>
       </p-tabPanel>
 
       <p-tabPanel>
         <ng-template pTemplate="header">
-          <div>
-            <i class="pi pi-bell"></i>
+          <div class="flex text-nowrap">
+            <i class="pi pi-bell mt-1"></i>
             <span class="ml-2">{{ 'pages.clusters.details.notifications.title' | translate }}</span>
           </div>
         </ng-template>
@@ -123,6 +192,8 @@
         <ng-template pTemplate="header">
           <div class="text-red-500 dark:text-red-400">
             <i class="pi pi-ban"></i>
+          <div class="flex text-nowrap text-red-500 dark:text-red-400">
+            <i class="pi pi-ban mt-1"></i>
             <span class="ml-2">{{ 'pages.clusters.details.delete.title' | translate }}</span>
           </div>
         </ng-template>
@@ -145,3 +216,7 @@
     <app-spinner></app-spinner>
   </ng-template>
 </ng-template>
+
+<p-sidebar [(visible)]="sidebarVisible" position="right" styleClass="sm:w-full md:w-1/2">
+  <app-resource-v2-details *ngIf="selectedResource" [resource]="selectedResource"></app-resource-v2-details>
+</p-sidebar>
